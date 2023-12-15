@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { FlagBrazil, FlagIsrael } from './flags';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -94,11 +95,107 @@ const dataTax: Tax = {
 }
 
 
+const countires = {
+  brazil: {
+    country: "Brail",
+    flag: <FlagBrazil />
+  },
+  israel: {
+    country: "Israel",
+    flag: <FlagIsrael />
+  }
+}
 
-
-
-
-
+const dataProperties = [
+  {
+    id: "brazil",
+    name: "Salvador",
+  },
+  {
+    id: "brazil",
+    name: "Rio"
+  },
+  {
+    id: "israel",
+    name: "Tel Aviv",
+  },
+  {
+    id: "israel",
+    name: "Haifa",
+  },
+  {
+    id: "israel",
+    name: "Jerusalem",
+  },
+  {
+    id: "italy",
+    name: "Venice",
+  },
+  {
+    id: "italy",
+    name: "Milan"
+  },
+  {
+    id: "italy",
+    name: "Rome"
+  },
+  {
+    id: "germany",
+    name: "Frankfurt"
+  },
+  {
+    id: "germany",
+    name: "Munich"
+  },
+  {
+    id: "germany",
+    name: "Berlin"
+  },
+  {
+    id: "china",
+    name: "Shenzhen"
+  },
+  {
+    id: "china",
+    name: "Beijing"
+  },
+  {
+    id: "china",
+    name: "Shanghai"
+  },
+  {
+    id: "france",
+    name: "Lyon"
+  },
+  {
+    id: "france",
+    name: "Toulouse"
+  },
+  {
+    id: "france",
+    name: "Paris"
+  },
+  {
+    id: "england",
+    name: "Liverpool"
+  },
+  {
+    id: "england",
+    name: "Manchester"
+  },
+  {
+    id: "england",
+    name: "London"
+  },
+  {
+    id: "usa",
+    name: "San Francisco"
+  },
+  {
+    id: "usa",
+    name: "New York"
+  }
+]
 
 
 interface Tile {
