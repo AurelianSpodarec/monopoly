@@ -19,53 +19,82 @@ interface Property {
   hotelCost: number;
 }
 
-interface Airport {
+
+
+// const airportInfo = {
+//   price: 200,
+//   rent: [25, 50, 100, 200]
+// }
+
+// const dataAirports:Airport[] = [
+//   {
+//     name: "TVL Airport",
+//   },
+//   {
+//     name: "MUC Airport"
+//   },
+//   {
+//     name: "CDG Airport",
+//   },
+//   {
+//    name: "JFK Airport" 
+//   }
+// ]
+
+interface Transport {
   name: string;
   price?: number;
   rent?: number[]
-  
-  // [25, 50, 100, 200]
-  // name: "TVL Airport",
-  // price: 200,
-  // rent: [25, 50, 100, 200]
+  properties: {
+    name: string;
+  }[]
 }
 
-const airportInfo = {
+const dataTransport: Transport = {
+  name: "Airport",
   price: 200,
-  rent: [25, 50, 100, 200]
+  rent: [25, 50, 100, 200],
+  properties: [
+    {
+      name: "TVL",
+    },
+    {
+      name: "MUC"
+    },
+    {
+      name: "CDG",
+    },
+    {
+     name: "JFK" 
+    }
+  ]
 }
 
-const dataAirports:Airport[] = [
-  {
-    name: "TVL Airport",
-  },
-  {
-    name: "MUC Airport"
-  },
-  {
-    name: "CDG Airport",
-  },
-  {
-   name: "JFK Airport" 
-  }
-]
 
-const dataTax = [
-  {
-    name: "Income tax",
-    amount: {
-      gold: 10,
-      type: "percentage"
-    }
-  },
-  {
-    name: "Luxury Tax",
-    amount: {
-      gold: 75,
-      type: "flat"
-    }
-  }
-]
+interface Tax {
+  name: string;
+  options: {
+    name: string;
+    amount: string;
+  }[]
+}
+
+const dataTax: Tax = {
+  name: "Tax",
+  options: [
+    {
+      name: "Income Tax",
+      amount: "20%"
+    },
+    {
+      name: "Luxury Tax",
+      amount: "75"
+    },
+  ]
+}
+
+
+
 
 
 
