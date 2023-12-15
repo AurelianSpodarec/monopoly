@@ -19,6 +19,59 @@ interface Property {
   hotelCost: number;
 }
 
+interface Airport {
+  name: string;
+  price?: number;
+  rent?: number[]
+  
+  // [25, 50, 100, 200]
+  // name: "TVL Airport",
+  // price: 200,
+  // rent: [25, 50, 100, 200]
+}
+
+const airportInfo = {
+  price: 200,
+  rent: [25, 50, 100, 200]
+}
+
+const dataAirports:Airport[] = [
+  {
+    name: "TVL Airport",
+  },
+  {
+    name: "MUC Airport"
+  },
+  {
+    name: "CDG Airport",
+  },
+  {
+   name: "JFK Airport" 
+  }
+]
+
+const dataTax = [
+  {
+    name: "Income tax",
+    amount: {
+      gold: 10,
+      type: "percentage"
+    }
+  },
+  {
+    name: "Luxury Tax",
+    amount: {
+      gold: 75,
+      type: "flat"
+    }
+  }
+]
+
+
+
+
+
+
 interface Tile {
   type: "corner"| "card" | "property" | "tax" | "suprise" | "communityChest" | "airport",
   name: string;
@@ -62,12 +115,17 @@ const boardData:Tile[] = [
     name: "Income Tax",
     amount: "10%"
   },
-  {
-    type: "airport",
-    name: "TVL Airport",
-    price: 200,
-    rent: [25, 50, 100, 200]
+  { 
+    type: "airport", 
+    ...dataAirports[0],
+    ...airportInfo
   },
+  // {
+  //   type: "airport",
+  //   name: "TVL Airport",
+  //   price: 200,
+  //   rent: [25, 50, 100, 200]
+  // },
   {
     type: "property",
     country: "israel",
