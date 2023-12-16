@@ -1,6 +1,10 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { FlagBrazil, FlagIsrael } from './flags';
+import dataProperties from './data/properties';
+import { dataTransport } from './data/transport';
+import { dataTax } from './data/tax';
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -33,80 +37,47 @@ interface Tile {
   amount?: string;
 }
 
+const dataCompanies = {
+  price: 150,
+  rent: [4, 10],
+  properties: [
+    {
+      name: "Electric Company"
+    },
+    {
+      name: "Water Company"
+    }
+  ]
+}
+
+const dataCorners = [
+  {
+    name: "Start",
+  },
+  {
+    name: "Jail"
+  },
+  {
+    name: "Vacation"
+  },
+  {
+    name: "Go to prison"
+  }
+]
+
 const boardData:Tile[] = [
   {
     type: "corner",
     name: "Start"
   },
   {
-    type: "property",
-    country: "brazil",
-    name: "Salvador",
-    price: 60,
-    rent: [2, 10, 30, 90, 160, 250],
-    houseCost: 50,
-    hotelCost: 50,
+    dataProperties[0],
   },
   {
     type: "communityChest",
     name: "Tresure",
   },
-  {
-    type: "property",
-    country: "brazil",
-    name: "Rio",
-    price: 60,
-    rent: [4, 20, 60, 180, 320, 450],
-    houseCost: 50,
-    hotelCost: 50,
-  },
-  {
-    type: "tax",
-    name: "Income Tax",
-    amount: "10%"
-  },
-  { 
-    type: "airport", 
-    ...dataAirports[0],
-    ...airportInfo
-  },
-  // {
-  //   type: "airport",
-  //   name: "TVL Airport",
-  //   price: 200,
-  //   rent: [25, 50, 100, 200]
-  // },
-  {
-    type: "property",
-    country: "israel",
-    name: "Tel Aviv",
-    price: 100,
-    rent: [6, 30, 90, 270, 400, 550],
-    houseCost: 50,
-    hotelCost: 50,
-  },
-  {
-    type: "suprise",
-    name: "Suprise",
-  },
-  {
-    type: "property",
-    country: "israel",
-    name: "Haifa",
-    price: 100,
-    rent: [6, 30, 90, 270, 400, 550],
-    houseCost: 50,
-    hotelCost: 50,
-  },
-  {
-    type: "property",
-    country: "israel",
-    name: "Jerusalem",
-    price: 120,
-    rent: [8, 40, 100, 300, 450, 600],
-    houseCost: 50,
-    hotelCost: 50,
-  },
+  
   {
     type: "corner",
     name: "Passing By - Jail",

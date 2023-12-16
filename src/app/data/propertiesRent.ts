@@ -28,5 +28,5 @@ export const dataPropertiesRent = [
     rent: [8, 40, 100, 300, 450, 600],
     houseCost: 50,
     hotelCost: 50,
-  }
+  },
 ]
