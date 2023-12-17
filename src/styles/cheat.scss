@@ -8,3 +8,52 @@
   min-block-size: 125%;
   min-inline-size: 125%;
 }
+
+
+.board {
+  grid-template-areas:
+  "start top prison"
+  "left center right"
+  "gotoprison bottom sleep";
+  width: 842.4px;
+  height: 656px;
+  transform: scale(0.8);
+
+
+  &-start {
+    grid-area: start;
+  }
+
+
+  &-prison {
+    grid-area: prison;
+  }
+
+  &-sleep {
+    grid-area: sleep;
+  }
+
+  &-gotoprison {
+    grid-area: gotoprison;
+  }
+
+
+  &-top {
+    grid-area: top;
+    display: flex;
+  }
+
+  &-right {
+    grid-area: right;
+  }
+
+  &-bottom {
+    grid-area: bottom;
+    display: flex;
+  }
+
+  &-left {
+    grid-area: left;
+  }
+}
+
