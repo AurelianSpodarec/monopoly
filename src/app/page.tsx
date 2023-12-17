@@ -44,6 +44,21 @@ const dataCompanies = {
   ]
 }
 
+const dataSpecial = {
+  start: {
+    name: "Go"
+  },
+  prison: {
+    name: "Prison"
+  },
+  vacation: {
+    name: "Vacation",
+  },
+  goToJail: {
+    name: "Go to Jail"
+  }
+}
+
 const dataBoard: any = [
   {
     ...dataProperties.brazil,
@@ -63,7 +78,8 @@ const dataBoard: any = [
     icon: <IconEditCheck />
   },
   {
-    ...dataTransport.properties[0]
+    icon: dataTransport.icon,
+    ...dataTransport.properties[0],
   },
   {
     ...dataProperties.israel,
@@ -80,6 +96,47 @@ const dataBoard: any = [
   {
     ...dataProperties.israel,
     ...dataProperties.israel.properties[2],
+  },
+  {
+    name: "Prison",
+  },
+  {
+    ...dataProperties.italy,
+    ...dataProperties.italy.properties[0],
+  },
+  {
+    name: "Company"
+  },
+  {
+    ...dataProperties.italy,
+    ...dataProperties.italy.properties[1],
+  },
+  {
+    ...dataProperties.italy,
+    ...dataProperties.italy.properties[2],
+  },
+  {
+    icon: dataTransport.icon,
+    ...dataTransport.properties[1]
+  },
+  {
+    ...dataProperties.germany,
+    ...dataProperties.germany.properties[0],
+  },
+  {
+    name: "Suprise",
+    icon: "./images/chest.png"
+  },
+  {
+    ...dataProperties.germany,
+    ...dataProperties.germany.properties[1],
+  },
+  {
+    ...dataProperties.germany,
+    ...dataProperties.germany.properties[2],
+  },
+  {
+    name: "Vacation"
   }
 ]
 
@@ -122,7 +179,7 @@ function Tile({ tile }: any) {
 function Board() {
   console.log("hi", dataBoard)
   return (
-    <div className="flex justify-evenly max-w-lg">
+    <div className="flex justify-evenly max-w-3lg">
       {dataBoard.map((tile) => {
         return <Tile tile={tile} />
       })}
