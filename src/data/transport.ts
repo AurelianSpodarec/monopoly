@@ -14,16 +14,16 @@ export const dataTransport: Transport = {
   rent: [25, 50, 100, 200],
   properties: [
     {
-      name: "TVL",
+      name: "TVL Airport",
     },
     {
-      name: "MUC"
+      name: "MUC Airport",
     },
     {
-      name: "CDG",
+      name: "CDG Airport",
     },
     {
-     name: "JFK" 
+     name: "JFK Airport",
     }
   ]
 }

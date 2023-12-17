@@ -1,0 +1,10 @@
+// ==========================================================================
+// # Cheat - Hot fixes and quick code; needs cleaning up afterwards
+// ==========================================================================
+
+
+.cheat-svg-icon svg {
+  flex-shrink: 0;
+  min-block-size: 125%;
+  min-inline-size: 125%;
+}
