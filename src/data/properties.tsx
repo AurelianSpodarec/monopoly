@@ -1,4 +1,4 @@
-import { FlagAmerica, FlagBrazil, FlagChina, FlagEngland, FlagFrance, FlagGermany, FlagIsrael, FlagItaly } from "../app/flags";
+import { FlagAmerica, FlagBrazil, FlagChina, FlagEngland, FlagFrance, FlagGermany, FlagIsrael, FlagItaly } from "../app/icons/flags";
 
 const dataProperties:any = {
   brazil: {

@@ -1,4 +1,4 @@
-import { FlagBrazil, FlagIsrael } from "../app/flags";
+import { FlagBrazil, FlagIsrael } from "../app/icons/flags";
 
 
 export const countires = {

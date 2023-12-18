@@ -1,16 +1,6 @@
-import IconPlane from "@/app/IconPlane";
+import IconPlane from "@/app/icons/IconPlane";
 
-interface Transport {
-  name: string;
-  price?: number;
-  icon?: string;
-  rent?: number[]
-  properties: {
-    name: string;
-  }[]
-}
-
-export const dataTransport: Transport = {
+export const dataTransport: any = {
   name: "Airport",
   icon: <IconPlane />,
   price: 200,

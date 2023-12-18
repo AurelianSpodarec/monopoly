@@ -11,6 +11,7 @@
 
 
 .board {
+  display: grid;
   grid-template-areas:
   "start top prison"
   "left center right"
@@ -19,11 +20,9 @@
   height: 656px;
   transform: scale(0.8);
 
-
   &-start {
     grid-area: start;
   }
-
 
   &-prison {
     grid-area: prison;
