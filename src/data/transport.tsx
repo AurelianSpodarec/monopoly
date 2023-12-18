@@ -1,4 +1,4 @@
-import IconPlane from "@/app/icons/IconPlane";
+import IconPlane from "@/icons/IconPlane";
 
 export const dataTransport: any = {
   name: "Airport",

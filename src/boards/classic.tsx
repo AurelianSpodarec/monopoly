@@ -1,6 +1,6 @@
 import dataProperties from "@/data/properties";
 import { dataTransport } from "@/data/transport";
-import IconEditCheck from "../icons/IconEditCheck";
+import IconEditCheck from "../../icons/IconEditCheck";
 
 
 const dataBoardClassic: any = [
