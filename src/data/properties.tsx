@@ -1,124 +1,277 @@
-import { FlagAmerica, FlagBrazil, FlagChina, FlagEngland, FlagFrance, FlagGermany, FlagIsrael, FlagItaly } from "../icons/flags";
+import { FlagAmerica, FlagBrazil, FlagChina, FlagEngland, FlagFrance, FlagGermany, FlagIsrael, FlagItaly } from "../app/flags";
 
-const dataProperties:any = {
+
+const dataProperties: any = {
   brazil: {
+    name: "Brazil",
     icon: <FlagBrazil />,
-    properties: [
-      {
+    cities: {
+      salvador: {
         name: "Salvador",
       },
-      {
+      rio: {
         name: "Rio"
       }
-    ]
+    }
   },
   israel: {
+    name: "Israel",
     icon: <FlagIsrael />,
-    properties: [
-      {
+    cities: {
+      telAviv: {
         name: "Tel Aviv"
       },
-      {
+      haifa: {
         name: "Haifa"
       },
-      {
+      jerusalem: {
         name: "Jerusalem"
-      },
-    ],
+      }
+    }
   },
   italy: {
+    name: "Italy",
     icon: <FlagItaly />,
-    properties: [
-      {
+    cities: {
+      venice: {
         name: "Venice"
       },
-      {
+      milan: {
         name: "Milan"
       },
-      {
+      rome: {
         name: "Rome"
-      },
-    ],
+      }
+    }
   },
   germany: {
+    name: "Germany",
     icon: <FlagGermany />,
-    properties: [
-      {
+    cities: {
+      frankfurt: {
         name: "Frankfurt"
       },
-      {
+      munich: {
         name: "Munich"
       },
-      {
+      berlin: {
         name: "Berlin"
-      },
-    ],
+      }
+    }
   },
   china: {
+    name: "China",
     icon: <FlagChina />,
-    properties: [
-      {
+    cities: {
+      shenzhen: {
         name: "Shenzhen"
       },
-      {
+      beijing: {
         name: "Beijing"
       },
-      {
+      shanghai: {
         name: "Shanghai"
-      },
-    ],
+      }
+    }
   },
   france: {
+    name: "France",
     icon: <FlagFrance />,
-    properties: [
-      {
+    cities: {
+      lyon: {
         name: "Lyon"
       },
-      {
+      toulouse: {
         name: "Toulouse"
       },
-      {
+      paris: {
         name: "Paris"
-      },
-    ],
+      }
+    }
   },
   england: {
+    name: "Great Britain",
     icon: <FlagEngland />,
-    properties: [
-      {
+    cities: {
+      liverpool: {
         name: "Liverpool"
       },
-      {
+      manchester: {
         name: "Manchester"
       },
-      {
+      london: {
         name: "London"
-      },
-    ],
+      }
+    }
   },
   usa: {
+    name: "America",
     icon: <FlagAmerica />,
-    properties: [
-      {
+    cities: {
+      sanFrancisco: {
         name: "San Francisco"
       },
-      {
+      newYork: {
         name: "New York"
-      },
-    ],
+      }
+    }
   },
 };
 
 
+
+
+// const dataProperties:any = {
+//   brazil: {
+//     icon: <FlagBrazil />,
+//     properties: [
+//       {
+//         name: "Salvador",
+//       },
+//       {
+//         name: "Rio"
+//       }
+//     ]
+//   },
+
+//   const dataProperties:any = {
+//     brazil: {
+//       icon: <FlagBrazil />,
+//       cities: {
+//         salvador: {
+//           name: "Salvador",
+//         },
+//         rio: {
+//           name: "Rio"
+//         }
+//       }
+//     },
+//     france:{
+//       // code...
+//     }
+
+
+
+
+// const dataProperties:any = {
+//   brazil: {
+//     icon: <FlagBrazil />,
+//     properties: [
+//       {
+//         name: "Salvador",
+//       },
+//       {
+//         name: "Rio"
+//       }
+//     ]
+//   },
+//   israel: {
+//     icon: <FlagIsrael />,
+//     properties: [
+//       {
+//         name: "Tel Aviv"
+//       },
+//       {
+//         name: "Haifa"
+//       },
+//       {
+//         name: "Jerusalem"
+//       },
+//     ],
+//   },
+//   italy: {
+//     icon: <FlagItaly />,
+//     properties: [
+//       {
+//         name: "Venice"
+//       },
+//       {
+//         name: "Milan"
+//       },
+//       {
+//         name: "Rome"
+//       },
+//     ],
+//   },
+//   germany: {
+//     icon: <FlagGermany />,
+//     properties: [
+//       {
+//         name: "Frankfurt"
+//       },
+//       {
+//         name: "Munich"
+//       },
+//       {
+//         name: "Berlin"
+//       },
+//     ],
+//   },
+//   china: {
+//     icon: <FlagChina />,
+//     properties: [
+//       {
+//         name: "Shenzhen"
+//       },
+//       {
+//         name: "Beijing"
+//       },
+//       {
+//         name: "Shanghai"
+//       },
+//     ],
+//   },
+//   france: {
+//     icon: <FlagFrance />,
+//     properties: [
+//       {
+//         name: "Lyon"
+//       },
+//       {
+//         name: "Toulouse"
+//       },
+//       {
+//         name: "Paris"
+//       },
+//     ],
+//   },
+//   england: {
+//     icon: <FlagEngland />,
+//     properties: [
+//       {
+//         name: "Liverpool"
+//       },
+//       {
+//         name: "Manchester"
+//       },
+//       {
+//         name: "London"
+//       },
+//     ],
+//   },
+//   usa: {
+//     icon: <FlagAmerica />,
+//     properties: [
+//       {
+//         name: "San Francisco"
+//       },
+//       {
+//         name: "New York"
+//       },
+//     ],
+//   },
+// };
+
+
 // const dataProperties = [
-  // {
-  //   name: "Salvador",
-  //   countryId: "brazil",
-  // },
-  // {
-  //   name: "Rio",
-  //   countryId: "brazil",
-  // },
+// {
+//   name: "Salvador",
+//   countryId: "brazil",
+// },
+// {
+//   name: "Rio",
+//   countryId: "brazil",
+// },
 //   {
 //     name: "Tel Aviv",
 //     countryId: "israel",
