@@ -1,7 +1,20 @@
-import { FlagAmerica, FlagBrazil, FlagChina, FlagEngland, FlagFrance, FlagGermany, FlagIsrael, FlagItaly } from "../app/flags";
+import { FlagAmerica, FlagBrazil, FlagChina, FlagEngland, FlagFrance, FlagGermany, FlagIsrael, FlagItaly } from "../icons/flags";
 
+interface City {
+  name: string;
+}
 
-const dataProperties: any = {
+interface Country {
+  [key: string]: {
+    name: string;
+    icon: JSX.Element;
+    cities: {
+      [key: string]: City;
+    };
+  };
+}
+
+const dataProperties: Country = {
   brazil: {
     name: "Brazil",
     icon: <FlagBrazil />,

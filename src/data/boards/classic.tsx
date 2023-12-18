@@ -2,13 +2,18 @@ import dataProperties from "@/data/properties";
 import { dataTransport } from "@/data/transport";
 import IconEditCheck from "../../icons/IconEditCheck";
 
-
 class Board {
+  constructor() {
+
+  }
   addCorners() {
 
   }
   addTile() {
-
+    // 
+  }
+  movePlayerTo(index:number) {
+    
   }
 }
 
