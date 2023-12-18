@@ -1,5 +1,5 @@
-import IconStart from "../icons/IconStart";
-import IconStartText from "../icons/IconStartText";
+import IconStart from "../../../../icons/IconStart";
+import IconStartText from "../../../../icons/IconStartText";
 
 function TileCorner({ className }:any) {
   return (
