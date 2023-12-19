@@ -15,6 +15,10 @@ class Board {
   movePlayerTo(index:number) {
     
   }
+
+  renderBoard() {
+    
+  }
 }
 
 // - If user wants to add a new tile, I will select all arrays inside, and add an empty tile to X index
@@ -52,10 +56,9 @@ class Board {
 //   }
 // ]
 
-// const dataBoardClassic: any = [
+const dataBoardClassic: any = [
   {
-    ...dataProperties.brazil,
-    ...dataProperties.brazil.properties[0],
+    ...dataProperties.brazil.cities.salvador,
   },
   {
     type: "communityChest",
@@ -63,8 +66,9 @@ class Board {
     icon: "./images/chest.png"
   },
   {
-    ...dataProperties.brazil,
-    ...dataProperties.brazil.properties[1],
+    // ...dataProperties.brazil,
+    // ...dataProperties.brazil.properties[1],
+    ...dataProperties.brazil.cities.rio,
   },
   {
     name: "Income Tax",

@@ -1,54 +1,66 @@
 import dataProperties from "../properties";
 
-const dataBoardTest = [
+let dataBoardTest:any = [
   {
-    ...dataProperties.brazil,
-    ...dataProperties.brazil.properties[0],
+    ...dataProperties.brazil.cities.salvador,
   },
   {
-    ...dataProperties.brazil,
-    ...dataProperties.brazil.properties[1],
+    ...dataProperties.brazil.cities.rio,
   },
   {
-    ...dataProperties.israel,
-    ...dataProperties.israel.properties[0],
+    ...dataProperties.israel.cities.telAviv,
   },
   {
-    ...dataProperties.israel,
-    ...dataProperties.israel.properties[1],
+    ...dataProperties.israel.cities.haifa,
   },
   {
-    ...dataProperties.israel,
-    ...dataProperties.israel.properties[2],
+    ...dataProperties.israel.cities.jerusalem,
   },
   {
-    ...dataProperties.italy,
-    ...dataProperties.italy.properties[0],
+    ...dataProperties.italy.cities.venice,
   },
   {
-    ...dataProperties.italy,
-    ...dataProperties.italy.properties[1],
+    ...dataProperties.italy.cities.milan,
   },
   {
-    ...dataProperties.italy,
-    ...dataProperties.italy.properties[2],
+    ...dataProperties.italy.cities.rome,
   },
   {
-    ...dataProperties.germany,
-    ...dataProperties.germany.properties[0],
+    ...dataProperties.germany.cities.frankfurt,
   },
   {
-    ...dataProperties.germany,
-    ...dataProperties.germany.properties[1],
+    ...dataProperties.germany.cities.munich,
   },
   {
-    ...dataProperties.germany,
-    ...dataProperties.germany.properties[2],
+    ...dataProperties.germany.cities.berlin,
   },
   {
-    ...dataProperties.usa,
-    ...dataProperties.usa.properties[0],
+    ...dataProperties.usa.cities.sanFrancisco,
   },
 ]
+
+function insertAtIndexAndShift(index, element) {
+  dataBoardTest.splice(index, 0, element);
+}
+
+insertAtIndexAndShift(0, {
+  name: "Start",
+  corner: true
+});
+
+insertAtIndexAndShift(4, {
+  name: "Prison",
+  corner: true,
+});
+
+insertAtIndexAndShift(8, {
+  name: "Vaccation",
+  corner: true,
+});
+
+insertAtIndexAndShift(12, {
+  name: "Go To Prison",
+  corner: true,
+});
 
 export default dataBoardTest;
