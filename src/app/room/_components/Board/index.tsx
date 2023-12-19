@@ -14,7 +14,7 @@ function Board() {
 
   const boardData = dataBoardTest
 
-  const renderTile = (item, index, className) => {
+  const renderTile = (item, index, className, direction) => {
     console.log("tile", item.corner)
 
     switch (item.type) {
@@ -23,10 +23,10 @@ function Board() {
       case 'special':
         return <div key={index}>Special</div>;
       default:
-        return <TileProperty key={index} tile={item} />;
+        return <TileProperty key={index} tile={item} direction={direction}/>; 
     }
-    
   };
+  
   const renderRows = () => {
     let rows: any = [];
     let currentRow: any = [];
@@ -44,12 +44,12 @@ function Board() {
             </div>
           );
           currentRow = [];
-          currentClassIndex = (currentClassIndex + 1) % 4; // Cycle through classes
+          currentClassIndex = (currentClassIndex + 1) % 4;
         }
-        rows.push(renderTile(item, index, `board-${classCorners[currentClassIndex]}`));
+        rows.push(renderTile(item, index, `board-${classCorners[currentClassIndex]}`, classRows[currentClassIndex]));
 
       } else {
-        currentRow.push(renderTile(item, index));
+        currentRow.push(renderTile(item, index, null, classRows[currentClassIndex]));
       }
     });
   
@@ -63,7 +63,6 @@ function Board() {
     return rows;
   };
 
-  
   return (
     <div className="board border border-red-600">
       {renderRows()}
