@@ -45,22 +45,22 @@ function insertAtIndexAndShift(index, element) {
 
 insertAtIndexAndShift(0, {
   name: "Start",
-  corner: true
+  type: "corner"
 });
 
 insertAtIndexAndShift(4, {
   name: "Prison",
-  corner: true,
+  type: "corner",
 });
 
 insertAtIndexAndShift(8, {
   name: "Vaccation",
-  corner: true,
+  type: "corner",
 });
 
 insertAtIndexAndShift(12, {
   name: "Go To Prison",
-  corner: true,
+  type: "corner",
 });
 
 export default dataBoardTest;
