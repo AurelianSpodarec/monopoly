@@ -18,7 +18,7 @@ const dataTransport = [
     id: "jfk",
     transportId: "airport",
     name: "JFK"
-  }
+  },
 ]
 
 export default dataTransport
