@@ -1,6 +1,6 @@
 import dataProperties from "../properties";
 
-let dataBoardTest:any = [
+let dataBoardTest: any = [
   {
     ...dataProperties.brazil,
     ...dataProperties.brazil.cities.salvador,
@@ -10,20 +10,20 @@ let dataBoardTest:any = [
     ...dataProperties.brazil.cities.rio,
   },
   {
-     ...dataProperties.israel,
+    ...dataProperties.israel,
     ...dataProperties.israel.cities.telAviv,
   },
   {
-     ...dataProperties.israel,
+    ...dataProperties.israel,
     ...dataProperties.israel.cities.haifa,
   },
   {
-     ...dataProperties.israel,
+    ...dataProperties.israel,
     ...dataProperties.israel.cities.jerusalem,
   },
   {
-    ...dataProperties.italy,
-    ...dataProperties.italy.cities.venice,
+    type: "special",
+    name: "Chest"
   },
   {
     ...dataProperties.italy,
