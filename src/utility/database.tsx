@@ -24,15 +24,28 @@ const database = {
         return findObjectById(dataCompanies, id)
       case "tax":
         const tax = dataTax.find((item:any) => item.id === id)
-        return tax
+        return {
+          type,
+          ...tax
+        }
       case "special":
         const special = dataSpecial.find((item:any) => item.id === id)
-        return special;
+        return {
+          type,
+          ...special
+        };
       case "transport":
         const transport = dataTransport.find((item:any) => item.id === id)
-        return transport;
+        return {
+          type,
+          ...transport
+        };
       case "corner":
-        return dataCorners.find((item:any) => item.id === id)
+        const corner = dataCorners.find((item:any) => item.id === id)
+        return {
+          type,
+          ...corner
+        }
       default:
         let compiledProperty = {};
         const property = dataCities.find((item: any) => item.id === id);
@@ -40,6 +53,7 @@ const database = {
         if (property) {
           const propertyCountry = dataCountries.find((item) => item.id === property.countryId);
           compiledProperty = {
+            type: type,
             name: property.name,
             icon: propertyCountry?.icon,
             country: propertyCountry?.name
@@ -56,7 +70,7 @@ const database = {
       const res = database.getObject(item)
       compiledBoard.push(res)
     })
-
+    console.log(compiledBoard)
     return compiledBoard;
   }
 }

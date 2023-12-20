@@ -1,3 +1,14 @@
+import { 
+  FlagAmerica, 
+  FlagBrazil, 
+  FlagChina, 
+  FlagEngland, 
+  FlagFrance, 
+  FlagGermany, 
+  FlagIsrael, 
+  FlagItaly 
+} from "./../../icons/flags";
+
 const dataCountries = [
   {
     id: "albania",
@@ -81,13 +92,13 @@ const dataCountries = [
     id: "france",
     continentId: "europe",
     name: "France",
-    // icon: <FlagFrance />
+    icon: <FlagFrance />
   },
   {
     id: "germany",
     continentId: "europe",
     name: "Germany",
-    // icon: <FlagGermany />
+    icon: <FlagGermany />
   },
   {
     id: "greece",
@@ -117,7 +128,7 @@ const dataCountries = [
     id: "italy",
     continentId: "europe",
     name: "Italy",
-    // icon: <FlagItaly />
+    icon: <FlagItaly />
   },
   {
     id: "kosovo",
@@ -267,7 +278,7 @@ const dataCountries = [
     id: "united_kingdom",
     continentId: "europe",
     name: "United Kingdom",
-    // icon: <FlagUnitedKingdom />
+    icon: <FlagEngland />
   },
   {
     id: "vatican_city",
@@ -282,20 +293,27 @@ const dataCountries = [
     id: "china",
     continentId: "",
     name: "China",
-    icon: ""
+    icon: <FlagChina />
   },
   {
     id: "israel",
     continentId: "",
     name: "Israel",
-    icon: ""
+    icon: <FlagIsrael />
   },
   {
     id: "brazil",
     continentId: "",
     name: "Brazil",
-    icon: ""
+    icon: <FlagBrazil />
   },
+
+  {
+    id: "usa",
+    continentId: "",
+    name: "USA",
+    icon: <FlagAmerica />
+  }
   // {
 
   // }

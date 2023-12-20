@@ -3,27 +3,44 @@
 import dataBoardClassic from "@/gameData/board";
 import database from "@/utility/database";
 import { useEffect, useState } from "react";
+import TileProperty from "../room/_components/Tiles/TileProperty";
+import TileCorner from "../room/_components/Tiles/TileCorner";
+import TileSpecial from "../room/_components/Tiles/TileSpecial";
+import Tile from "../room/_components/Tiles/Tile";
 
+function Board({ data }) {
+  const [board, setBoard] = useState([data])
 
-function PageRoom() {
-  const [board, setBoard] = useState([])
+  // const renderTile = (item, index, className, direction) => {
+  //   switch (item.type) {
+  //     case 'corner':
+  //       return <TileCorner key={index} className={className} />;
+  //     case 'special':
+  //       return <TileSpecial key={index} />;
+  //     default:
+  //       return <TileProperty key={index} tile={item} direction={direction} />;
+  //   }
+  // };
 
   useEffect(() => {
-    if(dataBoardClassic)
-    setBoard(database.compileBoard(dataBoardClassic))
-  }, [dataBoardClassic])
+    if(data)
+    setBoard(database.compileBoard(data))
+  }, [data])
 
-  console.log("board", board)
   if(!board) return <div>No Boaard data</div>
   return (
-    <div>
+    <div className="board">
       {board.map((item => {
-        return (
-          <div>
-              {item?.name}
-          </div>
-        )
+        return <Tile data={item} type={item.type} />
       }))}
+    </div>
+  )
+}
+
+function PageRoom() {
+  return (
+    <div>
+      <Board data={dataBoardClassic} />
     </div>
   )
 }
