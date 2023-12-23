@@ -1,3 +1,18 @@
+// const dataBoardClassic = [
+//   dataCorners.start,
+//   dataCities.salvador,
+//   dataSpecial.chest,
+//   dataCities.rio,
+//   dataTax.incomeTax,
+//   // dataTransportTypes.airport.tvl, // could be ship, airpor, railway; each different name
+//   dataCities.telAviv,
+//   dataSpecial.suprise,
+//   dataCities.haifa,
+//   dataCities.jerusalem,
+//   dataCorners.jail
+// ]
+
+
 const dataBoardClassic = [
   {
     type: "corner",
