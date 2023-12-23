@@ -95,12 +95,14 @@
     grid-area: bottom;
     display: flex;
     flex-direction: row;
+    flex-flow: row-reverse;
   }
 
   &-left {
     grid-area: left;
     display: flex;
     flex-direction: column;
+    flex-flow: column-reverse;
   }
 }
 

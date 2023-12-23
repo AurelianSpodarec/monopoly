@@ -8,46 +8,41 @@ import React, { useEffect, useState } from "react";
 import TileSpecial from "../room/_components/Tiles/TileSpecial";
 // import Tile from "../room/_components/Tiles/Tile";
 
-
 const dataBoard = {
   tiles: [
     {
       type: 'property',
       group: 'brown',
-      name: 'Mediterranean Avenue'
+      name: 'Medit Avenue 1'
     },
     {
       type: 'chest',
-      name: "Chest"
+      name: "Chest 2"
     },
     {
       type: 'property',
       group: 'brown',
-      name: 'Baltic Avenue'
+      name: 'Baltic Avenue 3'
     },
     {
       type: 'pay',
-      name: 'Income Tax'
+      name: 'Income Tax 4'
     },
     {
       type: 'property',
-      name: "San Francisco"
+      name: "San Francisco 5"
     },
     {
       type: "property",
-      name: "New York"
+      name: "New York 6 "
     },
     {
       type: 'suprise',
-      name: 'Suprise'
+      name: 'Suprise 7'
     },
     {
       type: 'pay',
-      name: "Luxury Tax"
-    },
-    {
-      type: "property",
-      name: "Milano"
+      name: "Luxury Tax 8"
     }
   ],
   corners: [
@@ -77,6 +72,10 @@ const dataBoard = {
 // Board state
 class BoardModel extends React.Component {
 
+  getRow() {
+    return dataBoard.tiles.length / 4
+  }
+
   createCorner() {
 
   }
@@ -89,70 +88,104 @@ class BoardModel extends React.Component {
 
   }
 
-  highlightCell() { // highlightGroup
+  highlightCell() { // add highlightGroup afterwards
 
   }
 
-  createBoard(data) {
+  compileBoardData(data: any) {
     const { tiles, corners } = data;
     const board = [];
 
-    const tilesBetweenCorners = Math.ceil(tiles.length / (corners.length - 1));
+    const tilesBetweenCorners = Math.floor(tiles.length / (corners.length - 1));
 
+    // Add tiles between corners
     for (let i = 0; i < corners.length; i++) {
       board.push(corners[i]);
 
-      // Add tiles between corners
       if (i < corners.length - 1) {
         const startIdx = i * tilesBetweenCorners;
-        const endIdx = (i + 1) * tilesBetweenCorners;
+        const endIdx = Math.min((i + 1) * tilesBetweenCorners, tiles.length);
         board.push(...tiles.slice(startIdx, endIdx));
       }
     }
 
-    // Add remaining tiles if any
-    const remainingTiles = tiles.slice(corners.length * tilesBetweenCorners);
+    const remainingTiles = tiles.slice((corners.length - 1) * tilesBetweenCorners);
     board.push(...remainingTiles);
 
+    console.log("board", board)
     return board;
   }
+
+  renderBoard(data: any) {
+    const boardData = this.compileBoardData(data);
+    const renderedBoard = [];
+    let rowIndex = 0;
+    const totalRows = 4;
+
+    const renderRow = (rowTiles: any[], rowClass: string) => (
+      <div key={`row-${rowIndex}`} className={`row ${rowClass}`}>
+        {rowTiles}
+      </div>
+    );
+
+    for (let i = 0; i < boardData.length; i++) {
+      const currentItem = boardData[i];
+
+      if (currentItem.type === "corner") {
+        renderedBoard.push(<Tile tile={currentItem} key={currentItem.name} />);
+      } else {
+
+        const tilesInRow = [
+          <Tile tile={currentItem} key={currentItem.name} />,
+          <Tile tile={boardData[i + 1]} key={boardData[i + 1].name} />,
+        ];
+
+        const rowClassMap: any = {
+          0: "board-top",
+          1: "board-right",
+          2: "board-bottom",
+          3: "board-left",
+        };
+        let rowClass = rowClassMap[rowIndex] || "";
+        renderedBoard.push(renderRow(tilesInRow, rowClass));
+
+        rowIndex = (rowIndex + 1) % totalRows;
+        i++;
+      }
+    }
+
+    return renderedBoard;
+  }
+
 }
-
-class GameState extends React.Component {
-  // Players
-  // PlayerTurn
-}
-
-
-
-
 
 function TileProperty({ tile }: any) {
   return (
     <div>
-      Property: {tile.name}
+      {tile.name}
     </div>
   )
 }
 
 function TileCorner({ tile }: any) {
-  const corners = {
+  const corners:any = {
     start: "board-start",
     jail: "board-jail",
     sleep: "board-sleep",
     gotojail: "board-gotojail"
   }
-    console.log("wooo", tile.id)
+  console.log("wooo", tile.id)
 
   return (
     <div className={`${corners[tile.id]}`}>
-      Corner: {tile.name}
+      {tile.name}
     </div>
   )
 }
 
 function Tile({ tile, type }: any) {
 
+  console.log("tile", tile)
   function renderTile() {
     switch (tile.type) {
       case "corner":
@@ -169,13 +202,24 @@ function Tile({ tile, type }: any) {
   )
 }
 
+
+
+// Render player on tile 0
+// Make the player character move to next tile
+// Animate it
+function PlayerCharacter() {
+  return (
+    <div className="h-10 w-10 bg-red-500 rounded-full">
+    </div>
+  )
+}
+
 function Board({ data }: any) {
   const [board, setBoard] = useState([]);
 
-
   function newBoard() {
-    const createBoard = new BoardModel();
-    const tiles = createBoard.createBoard(data);
+    const renderBoard = new BoardModel();
+    const tiles = renderBoard.renderBoard(data);
     setBoard(tiles);
     console.log(tiles)
   }
@@ -189,9 +233,7 @@ function Board({ data }: any) {
     <div>
       <h1 className="text-2xl font-bold flex w-full">Board</h1>
       <div className="board">
-        {board.map((item, index) => (
-          <Tile tile={item} key={item.name} />
-        ))}
+        {board}
       </div>
     </div>
   )
