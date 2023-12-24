@@ -6,6 +6,8 @@ import React, { useEffect, useState } from "react";
 // import TileProperty from "../room/_components/Tiles/TileProperty";
 // import TileCorner from "../room/_components/Tiles/TileCorner";
 import TileSpecial from "../room/_components/Tiles/TileSpecial";
+import TileProperty from "../room/_components/Tiles/TileProperty";
+import TileCorner from "../room/_components/Tiles/TileCorner";
 // import Tile from "../room/_components/Tiles/Tile";
 
 const dataBoard = {
@@ -69,60 +71,65 @@ const dataBoard = {
   ]
 }
 
-// Board state
-class BoardModel extends React.Component {
 
+class BoardModel extends React.Component {
   getRow() {
-    return dataBoard.tiles.length / 4
+    return dataBoard.tiles.length / 4;
   }
 
   createCorner() {
-
   }
 
   createRow() {
-
   }
 
   createTile() {
-
   }
 
-  highlightCell() { // add highlightGroup afterwards
-
+  highlightCell() {
   }
 
-  compileBoardData(data: any) {
-    const { tiles, corners } = data;
-    const board = [];
+  addTilesBetweenCorners(board, startIndex, endIndex, tiles) {
+    board.push(...tiles.slice(startIndex, endIndex));
+  }
 
-    const tilesBetweenCorners = Math.floor(tiles.length / (corners.length - 1));
-
-    // Add tiles between corners
+  processCornersAndTiles(board, corners, tiles, tilesBetweenCorners) {
     for (let i = 0; i < corners.length; i++) {
       board.push(corners[i]);
 
       if (i < corners.length - 1) {
         const startIdx = i * tilesBetweenCorners;
         const endIdx = Math.min((i + 1) * tilesBetweenCorners, tiles.length);
-        board.push(...tiles.slice(startIdx, endIdx));
+        this.addTilesBetweenCorners(board, startIdx, endIdx, tiles);
       }
     }
+  }
 
+  addRemainingTiles(board, corners, tiles, tilesBetweenCorners) {
     const remainingTiles = tiles.slice((corners.length - 1) * tilesBetweenCorners);
     board.push(...remainingTiles);
+  }
 
-    console.log("board", board)
+  compileBoardData(data) {
+    const { tiles, corners } = data;
+    const board = [];
+
+    const tilesBetweenCorners = Math.floor(tiles.length / (corners.length - 1));
+
+    this.processCornersAndTiles(board, corners, tiles, tilesBetweenCorners);
+    this.addRemainingTiles(board, corners, tiles, tilesBetweenCorners);
+
+    console.log('board', board);
     return board;
   }
 
-  renderBoard(data: any) {
+  renderBoard(data:any) {
     const boardData = this.compileBoardData(data);
     const renderedBoard = [];
     let rowIndex = 0;
     const totalRows = 4;
 
-    const renderRow = (rowTiles: any[], rowClass: string) => (
+    const renderRow = (rowTiles, rowClass) => (
       <div key={`row-${rowIndex}`} className={`row ${rowClass}`}>
         {rowTiles}
       </div>
@@ -131,22 +138,21 @@ class BoardModel extends React.Component {
     for (let i = 0; i < boardData.length; i++) {
       const currentItem = boardData[i];
 
-      if (currentItem.type === "corner") {
+      if (currentItem.type === 'corner') {
         renderedBoard.push(<Tile tile={currentItem} key={currentItem.name} />);
       } else {
-
         const tilesInRow = [
           <Tile tile={currentItem} key={currentItem.name} />,
           <Tile tile={boardData[i + 1]} key={boardData[i + 1].name} />,
         ];
 
-        const rowClassMap: any = {
-          0: "board-top",
-          1: "board-right",
-          2: "board-bottom",
-          3: "board-left",
+        const rowClassMap = {
+          0: 'board-top',
+          1: 'board-right',
+          2: 'board-bottom',
+          3: 'board-left',
         };
-        let rowClass = rowClassMap[rowIndex] || "";
+        let rowClass = rowClassMap[rowIndex] || '';
         renderedBoard.push(renderRow(tilesInRow, rowClass));
 
         rowIndex = (rowIndex + 1) % totalRows;
@@ -156,36 +162,10 @@ class BoardModel extends React.Component {
 
     return renderedBoard;
   }
-
-}
-
-function TileProperty({ tile }: any) {
-  return (
-    <div>
-      {tile.name}
-    </div>
-  )
-}
-
-function TileCorner({ tile }: any) {
-  const corners:any = {
-    start: "board-start",
-    jail: "board-jail",
-    sleep: "board-sleep",
-    gotojail: "board-gotojail"
-  }
-  console.log("wooo", tile.id)
-
-  return (
-    <div className={`${corners[tile.id]}`}>
-      {tile.name}
-    </div>
-  )
 }
 
 function Tile({ tile, type }: any) {
 
-  console.log("tile", tile)
   function renderTile() {
     switch (tile.type) {
       case "corner":
@@ -195,11 +175,8 @@ function Tile({ tile, type }: any) {
     }
   }
 
-  return (
-    <>
-      {renderTile()}
-    </>
-  )
+  return renderTile()
+  
 }
 
 

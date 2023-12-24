@@ -9,7 +9,7 @@ interface TileProperty {
 // Tile: Property, Chest, Suprise, Tax, Transport
 function TileProperty({ tile, direction, reverse }: any) {
 
-  console.log("direction", tile)
+  console.log("direction", tile, direction, reverse)
   
   const directions: any = {
     left: "[writing-mode:vertical-rl] rotate-270",
