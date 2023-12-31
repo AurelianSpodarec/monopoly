@@ -1,10 +1,10 @@
-import TileCorner from "@/app/room/_components/Tiles/TileCorner"
-import TileProperty from "@/app/room/_components/Tiles/TileProperty"
+import TileCorner from "./Tiles/TileCorner"
+import TileProperty from "./Tiles/TileProperty"
 
 function Tile({ tile, type }: any) {
 
   function renderTile() {
-    switch (tile.type) {
+    switch (tile.corner) {
       case "corner":
         return <TileCorner tile={tile} />
       default:

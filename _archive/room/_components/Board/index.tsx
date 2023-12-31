@@ -3,9 +3,9 @@
 import React from 'react';
 
 // import dataBoardTest from "@/data/boards/test";
-import TileProperty from "../Tiles/TileProperty";
-import TileCorner from "../Tiles/TileCorner";
-import TileSpecial from '../Tiles/TileSpecial';
+import TileProperty from "../../../../src/app/Tiles/TileProperty";
+import TileCorner from "../../../../src/app/Tiles/TileCorner";
+import TileSpecial from '../../../../src/app/Tiles/TileSpecial';
 import dataProperties from '@/data/properties';
 
 // Given 40total tiles, there should be 4rows, each row containing 9tiles. Before the row, the tile should be outside and after the row finishesh, the tile should be outside

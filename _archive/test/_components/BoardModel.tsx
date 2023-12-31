@@ -1,6 +1,6 @@
 import React from 'react';
 import dataBoard from "./data";
-import Tile from './Tile';
+import Tile from '../../../src/app/Tile';
 
 class BoardModel extends React.Component {
   getRow() {

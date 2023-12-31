@@ -1,4 +1,4 @@
-import { FlagAmerica, FlagBrazil, FlagChina, FlagEngland, FlagFrance, FlagGermany, FlagIsrael, FlagItaly } from "../icons/flags";
+import { FlagAmerica, FlagBrazil, FlagChina, FlagEngland, FlagFrance, FlagGermany, FlagIsrael, FlagItaly } from "../../_archive/icons/flags";
 
 interface City {
   name: string;

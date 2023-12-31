@@ -6,9 +6,7 @@ import GameBoard from "./_components/GameBoard";
 
 function PageRoom() {
   return (
-    <div>
-      <GameBoard data={dataBoard} />
-    </div>
+    <GameBoard data={dataBoard} />
   )
 }
 
