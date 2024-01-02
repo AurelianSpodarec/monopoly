@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import BOARD_CLASSIC from './board-classic';
 
 
@@ -56,7 +56,7 @@ function Tile({ data }) {
 function TileCorner({ data, className }: any) {
 
   return (
-    <div className={`flex items-center justify-center flex-col rounded-lg bg-[#232747] ${className}`} style={{ inlineSize: "6.5rem", blockSize: "6.5rem" }}>
+    <div className={`flex items-center justify-center flex-col rounded-lg bg-[#232747] ${className}`} style={{ inlineSize: "6.5rem", blockSize: "6.5rem", }}>
       <div className="w-9/12 text-white">
         {/* <IconStartText /> */}
         {data.name}
@@ -72,6 +72,40 @@ function TileCorner({ data, className }: any) {
 function Board({ board, players, children }: { board: any, players: Player, children: React.ReactElement }) {
   const tiles = compileBoard(board);
   const numCorners = 4;
+  const boardRef = useRef(null)
+  const [boardDimensions, setBoardDimensions] = useState()
+  const [boardScale, setBoardScale] = useState(1)
+
+  // const rectWidth = document.browser.width
+  // const rectHeight = rectWidth / aspectRatio;
+
+
+  useEffect(() => {
+    const dim = boardRef?.current?.getBoundingClientRect()
+    setBoardDimensions(dim)
+    // const ratioX = window.innerWidth / dim.width
+    // const ratioY = window.innerHeight / dim.height
+    // const scale = Math.min(ratioX, ratioY)
+
+    // // const scale = Math.min(window.innerWidth / img.width, window.innerHeight / img.height);
+
+    // setBoardScale((scale))
+
+    // Board needs to be always square, can't be bigger than screen height or width
+    // if(dim) {
+    //   calculateScale()
+    // }
+    
+    const ratioX = window.innerWidth / dim.width
+    const ratioY = window.innerHeight / dim.height
+    const scale = Math.min(ratioX, ratioY)
+
+    setBoardScale((dim.width * scale) / 1000)
+  }, [])
+
+  function calculateScale() {
+    // if(!boardDimensions) return
+  }
 
   const classNamesCorners = ['go', 'jail', 'sleep', 'gotojail'];
   const classnamesRows = ['top', 'right', 'bottom', 'left'];
@@ -86,12 +120,12 @@ function Board({ board, players, children }: { board: any, players: Player, chil
       const tilesPerRow = (tiles.length - numCorners) / numCorners
 
       if (isCorner) {
-        boardElements.push(<TileCorner data={tile} className={`corner board-${classNamesCorners[i / 10]}`} />)
+        boardElements.push(<TileCorner key={i} data={tile} className={`corner board-${classNamesCorners[i / 10]}`} />)
       } else {
-        row.push(<Tile data={tile} />)
+        row.push(<Tile key={i} data={tile} />)
 
         if (row.length % tilesPerRow === 0) {
-          boardElements.push(<div className={`row board-${classnamesRows[i % tilesPerRow]}`}>{...row}</div>)
+          boardElements.push(<div key={i} className={`row board-${classnamesRows[i % tilesPerRow]}`}>{...row}</div>)
           row = []
         }
       }
@@ -101,9 +135,17 @@ function Board({ board, players, children }: { board: any, players: Player, chil
     return boardElements;
   }
 
-  function PlayerToken({ player }: any) {
+  function PlayerToken({ player, position }: any) {
     return (
-      <div className="absolute top-0">
+      <div
+        className="absolute top-0 h-8 w-8 leading-8 table "
+        style={{
+          "fontSize": "2rem",
+          "transform": "translate(0px, 0px) translate(-50%, -50%)",
+          "transitionDuration": ".3s",
+          "transitionTimingFunction": "cubic-bezier(.1,0,0,1)"
+        }}
+      >
         {player.token}
       </div>
     )
@@ -112,19 +154,22 @@ function Board({ board, players, children }: { board: any, players: Player, chil
   function renderPlayers() {
     return (
       <div className="absolute top-0 right-0 bottom-0 left-0 pointer-events-none">
-        {players.map((player, index) => {
+        {/* {players.map((player: Player, index: number) => {
           return <PlayerToken key={index} player={player} />
-        })}
+        })} */}
       </div>
     )
   }
 
   return (
-    <div className="board">
-      {renderBoard()}
-      {renderPlayers()}
-      <div className="board-center">
-        {children}
+    <div className="board-wrap" ref={boardRef} style={{ width: boardDimensions?.width, height: boardDimensions?.width, transform: `scale(${boardScale})` }}>
+
+      <div className="board">
+        {renderBoard()}
+        {renderPlayers()}
+        <div className="board-center">
+          {children}
+        </div>
       </div>
     </div>
   );
@@ -150,6 +195,11 @@ function Monopoly() {
 
   }
 
+
+  function getBoardDimensions() {
+
+  }
+
   function movePlayer() {
     const die1 = rollDie()
     const die2 = rollDie()
@@ -158,17 +208,15 @@ function Monopoly() {
       die2,
     })
     const spaces = die1 + die2
-  
-    setPlayers(playerTurn, (player) => {
-      player.location = 5
-    });
+
+    // setPlayers(playerTurn, (player) => {
+    //   player.location = 5
+    // });
   }
 
   return (
-    <div className="bg-[#130f1d] text-white">
-      <div>
-
-      </div>
+    <div className="bg-[#130f1d] text-white overflow-hidden h-full w-full">
+     
       <Board board={BOARD_CLASSIC} players={players}>
         <div className="h-full w-full p-10 bg-[#130f1d] text-white">
 
@@ -187,20 +235,13 @@ function Monopoly() {
           <div>
             {players.map((player, index) => {
               return (
-                <div className="mb-4">
+                <div key={index} className="mb-4">
                   <div>{player.name}{player.token}{player.money}</div>
                   Position: {player.location}
                 </div>
               )
             })}
           </div>
-
-          <div>
-          </div>
-          {/* <button>
-
-          </button> */}
-
 
         </div>
       </Board>
