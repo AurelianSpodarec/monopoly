@@ -3,10 +3,6 @@ import Board from "./Board";
 import BOARD_CLASSIC from "../../boards/board-classic";
 import { IPlayer } from "../interfaces/IPlayer";
 
-function rollDie() {
-  return 1 + Math.floor(Math.random() * 6);
-}
-
 const DATA_PLAYERS = [
   {
     name: "Mario",
@@ -33,23 +29,31 @@ const DATA_PLAYERS = [
 ]
 
 function Monopoly({ className }: any) {
+
+  const boardRef = useRef(null)
+  const [boardDimensions, setBoardDimensions] = useState()
+  const [boardScale, setBoardScale] = useState(1)
+  const dimensions = { width: 0, height: 0 };
+
+  const [windowDimensions, setWindowDimensions] = useState({ width: 0, height: 0 })
+
+  const [players, setPlayers] = useState<IPlayer[]>([...DATA_PLAYERS]);
+  const [playerTurn, setPlayerTurn] = useState(0);
+  const currentPlayer = players[playerTurn];
+
   const [dice, setDice] = useState({
     die1: 1,
     die2: 1
   })
-  const [players, setPlayers] = useState<IPlayer[]>([...DATA_PLAYERS]);
-  const boardRef = useRef(null)
-  const [playerTurn, setPlayerTurn] = useState(0);
-  const currentPlayer = players[playerTurn];
 
+  // Die
+  // ===========================================================
+  function rollDie() {
+    return 1 + Math.floor(Math.random() * 6);
+  }
 
-  const [boardDimensions, setBoardDimensions] = useState()
-  const [boardScale, setBoardScale] = useState(1)
-
-  const dimensions = { width: 0, height: 0 };
-  const [windowDimensions, setWindowDimensions] = useState({ width: 0, height: 0 })
-
-
+  // Board Resizing
+  // ===========================================================
   const updateBoardScale = () => {
 
     const boardDimensionsRect = boardRef?.current?.getBoundingClientRect();
@@ -106,19 +110,12 @@ function Monopoly({ className }: any) {
     // setBoardScale((dimensions.width * scale) / 1000)
   };
 
-  useEffect(() => {
-    updateBoardScale()
-  }, [])
+  function getBoardDimensions() {
 
-  useEffect(() => {
-    const handlerResize = () => {
-      updateBoardScale()
-    };
-    window.addEventListener('resize', handlerResize);
-    return () => {
-      window.removeEventListener('resize', handlerResize);
-    };
-  }, []);
+  }
+
+  // Player
+  // ===========================================================
 
   function updatePlayer() {
 
@@ -146,14 +143,6 @@ function Monopoly({ className }: any) {
     });
   }
 
-  function getBoardDimensions() {
-
-  }
-
-  useEffect(() => {
-    setPlayerTransformPosition(1)
-  }, [])
-
   function movePlayer() {
     const die1 = rollDie()
     const die2 = rollDie()
@@ -163,6 +152,24 @@ function Monopoly({ className }: any) {
     })
     const spaces = die1 + die2
   }
+
+  // Other
+  // ===========================================================
+
+  useEffect(() => {
+    updateBoardScale()
+    setPlayerTransformPosition(1)
+  }, [])
+
+  useEffect(() => {
+    const handlerResize = () => {
+      updateBoardScale()
+    };
+    window.addEventListener('resize', handlerResize);
+    return () => {
+      window.removeEventListener('resize', handlerResize);
+    };
+  }, []);
 
   return (
     <div
