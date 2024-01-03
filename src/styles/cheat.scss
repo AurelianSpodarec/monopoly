@@ -45,19 +45,19 @@
 
     &-center {
       align-self: flex-start;
-    bottom: 1rem;
-    margin: 0;
-    top: 1rem;
+      bottom: 1rem;
+      margin: 0;
+      top: 1rem;
 
-    @media screen and (min-width: 767px) {
-      position: sticky;
-    }
+      @media screen and (min-width: 767px) {
+        position: sticky;
+      }
 
-    backface-visibility: hidden;
-    display: flex;
-    grid-area: center;
-    // margin: auto;
-    transform-origin: 0 0;
+      backface-visibility: hidden;
+      display: flex;
+      grid-area: center;
+      // margin: auto;
+      transform-origin: 0 0;
     }
 
     &-right {

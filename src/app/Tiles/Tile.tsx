@@ -2,10 +2,16 @@ import TileCorner from "./TileCorner";
 import TileProperty from "./TileProperty";
 import TileSpecial from "./TileSpecial";
 
-function Tile({ type, data }) {
+interface TileProps {
+  type?: "corner" | "special" | "property";
+  data: any;
+  className?: string;
+}
+
+function Tile({ type = "property", data, className }: TileProps) {
   switch (type) {
     case 'corner':
-      return <TileCorner />;
+      return <TileCorner className={className} />;
     case 'special':
       return <TileSpecial />;
     default:

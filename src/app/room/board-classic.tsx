@@ -1,5 +1,6 @@
+import { IBoard } from "../interfaces/IBoard";
 
-const BOARD_CLASSIC = {
+const BOARD_CLASSIC:IBoard = {
   corners: [
     {
       "name": "Go",

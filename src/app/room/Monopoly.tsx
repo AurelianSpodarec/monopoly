@@ -57,6 +57,8 @@ function Monopoly({ className }: any) {
         height: windowHeight,
       });
     }
+// const rectWidth = document.browser.width
+// const rectHeight = rectWidth / aspectRatio;
 
       // const dimensions = boardRef?.current?.getBoundingClientRect()
     // setBoardDimensions(dimensions)
