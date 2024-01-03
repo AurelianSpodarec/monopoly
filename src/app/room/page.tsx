@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import BOARD_CLASSIC from './board-classic';
 
 
@@ -47,7 +47,7 @@ function compileBoard(data: any) {
 
 function Tile({ data }) {
   return (
-    <div className="tile min-w-[6.5rem] min-h-[6.5rem] bg-[#482448]">
+    <div className="tile min-w-[6.5rem] min-h-[6.5rem] bg-[#482448] " style={{ "minInlineSize": "4.25rem", flex: "1 0 0", blockSize: "6.5rem" }}>
       {data.name}
     </div>
   )
@@ -76,15 +76,21 @@ function Board({ board, players, children }: { board: any, players: Player, chil
   const [boardDimensions, setBoardDimensions] = useState()
   const [boardScale, setBoardScale] = useState(1)
 
+  const dimensions = { width: 0, height: 0 };
+
   // const rectWidth = document.browser.width
   // const rectHeight = rectWidth / aspectRatio;
 
 
   useEffect(() => {
-    const dim = boardRef?.current?.getBoundingClientRect()
-    setBoardDimensions(dim)
-    // const ratioX = window.innerWidth / dim.width
-    // const ratioY = window.innerHeight / dim.height
+    // const dimensions = boardRef?.current?.getBoundingClientRect()
+    // setBoardDimensions(dimensions)
+
+
+
+
+    // const ratioX = window.innerWidth / dimensions.width
+    // const ratioY = window.innerHeight / dimensions.height
     // const scale = Math.min(ratioX, ratioY)
 
     // // const scale = Math.min(window.innerWidth / img.width, window.innerHeight / img.height);
@@ -92,20 +98,61 @@ function Board({ board, players, children }: { board: any, players: Player, chil
     // setBoardScale((scale))
 
     // Board needs to be always square, can't be bigger than screen height or width
-    // if(dim) {
+    // if(dimensions) {
     //   calculateScale()
     // }
-    
-    const ratioX = window.innerWidth / dim.width
-    const ratioY = window.innerHeight / dim.height
-    const scale = Math.min(ratioX, ratioY)
 
-    setBoardScale((dim.width * scale) / 1000)
+    // const ratioX = window.innerWidth / dimensions.width
+    // const ratioY = window.innerHeight / dimensions.height
+    // const scale = Math.min(ratioX, ratioY)
+
+    // setBoardScale((dimensions.width * scale) / 1000)
+
+
+
+
+
+
+
+
+
+
+    // console.log(dimensions)
+    // const windowWidth = window.innerWidth;
+    // const windowHeight = window.innerHeight;
+
+    // const scaleX = windowWidth / dimensions.width;
+    // const scaleY = windowHeight / dimensions.height;
+
+    // const scale = Math.min(scaleX, scaleY);
+
+    // if (windowWidth <= windowHeight) {
+    //   setBoardScale(scale) // some error
+    //   console.log(111)
+    // } else {
+    //   setBoardScale((dimensions.height * scale) / 1000) // good and works fine
+    //   console.log(222)
+    // }
+    // updateBoardScale()
   }, [])
 
   function calculateScale() {
     // if(!boardDimensions) return
   }
+
+
+  // useLayoutEffect(() => {
+  //   const handleResize = () => {
+  //     updateBoardScale();
+  //   };
+
+  //   window.addEventListener('resize', handleResize);
+  //   updateBoardScale();
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize);
+  //   };
+  // }, []);
+
 
   const classNamesCorners = ['go', 'jail', 'sleep', 'gotojail'];
   const classnamesRows = ['top', 'right', 'bottom', 'left'];
@@ -162,8 +209,7 @@ function Board({ board, players, children }: { board: any, players: Player, chil
   }
 
   return (
-    <div className="board-wrap" ref={boardRef} style={{ width: boardDimensions?.width, height: boardDimensions?.width, transform: `scale(${boardScale})` }}>
-
+    <div className="m-auto relative w-fit">
       <div className="board">
         {renderBoard()}
         {renderPlayers()}
@@ -171,7 +217,26 @@ function Board({ board, players, children }: { board: any, players: Player, chil
           {children}
         </div>
       </div>
+
+
     </div>
+    // <div className="p4" style={{ minWidth: "fit-content" }}>
+
+    //   <div className="board-wrap" data-resized="true">
+    //     <div className="m-auto relative" style={{ width: "fit-content" }}>
+
+    //       <div className="board">
+    //         {renderBoard()}
+    //         {renderPlayers()}
+    //         <div className="board-center">
+    //           {children}
+    //         </div>
+    //       </div>
+
+    //     </div>
+    //   </div>
+
+    // </div>
   );
 };
 
@@ -179,7 +244,12 @@ function rollDie() {
   return 1 + Math.floor(Math.random() * 6);
 }
 
-function Monopoly() {
+
+
+
+
+
+function Monopoly({ className }: any) {
   const [dice, setDice] = useState({
     die1: 1,
     die2: 1
@@ -188,8 +258,69 @@ function Monopoly() {
     { name: "Mario", token: "🥶", location: 0, money: 1500, properties: [] },
     { name: "Luigi", token: "😎", location: 0, money: 1500, properties: [] }
   ]);
+  const boardRef = useRef(null)
   const [playerTurn, setPlayerTurn] = useState(0);
   const currentPlayer = players[playerTurn];
+
+
+  const [boardDimensions, setBoardDimensions] = useState()
+  const [boardScale, setBoardScale] = useState(1)
+
+  const dimensions = { width: 0, height: 0 };
+  const [windowDimensions, setWindowDimensions] = useState({ width: 0, height: 0 })
+
+
+  const updateBoardScale = () => {
+    const dimensions = boardRef?.current?.getBoundingClientRect();
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    console.log(windowWidth, windowHeight)
+
+    // Get height of screen
+
+    setBoardDimensions({
+      width: windowHeight,
+      height: windowHeight,
+    })
+
+    const scaleX = windowWidth / dimensions.width;
+    const scaleY = windowHeight / dimensions.height;
+
+    const scale = Math.min(scaleX, scaleY);
+    setBoardScale(scale)
+
+    // console.log(dimensions)
+    // if (dimensions) {
+    //   setBoardDimensions(dimensions);
+
+    //   setWindowDimensions({
+    //     width: windowWidth,
+    //     height: windowHeight
+    //   })
+
+    //   const scaleX = windowWidth / dimensions.width;
+    //   const scaleY = windowHeight / dimensions.height;
+
+    //   const scale = Math.min(scaleX, scaleY);
+
+    //   console.log(scale)
+
+    //   if (windowWidth <= windowHeight) {
+    //     setBoardScale(scale);
+    //     console.log("111")
+    //   } else {
+    //     // setBoardScale((dimensions.height * scale) / 1000);
+    //     const newWidth = dimensions.height;
+    //     setBoardScale((dimensions.width * scale) / 1000);
+    //   }
+    // }
+  };
+
+
+  useEffect(() => {
+    updateBoardScale()
+  }, [])
 
   function updatePlayer() {
 
@@ -215,8 +346,43 @@ function Monopoly() {
   }
 
   return (
-    <div className="bg-[#130f1d] text-white overflow-hidden h-full w-full">
-     
+    <div
+      className={`bg-[#130f1d] text-white ${className} `}
+      ref={boardRef}
+      style={{
+        width: boardDimensions?.width,
+        height: boardDimensions?.height,
+        transform: `scale(${boardScale})`
+      }}>
+      {/* <Board board={BOARD_CLASSIC} players={players}>
+        <div className="h-full w-full p-10 bg-[#130f1d] text-white">
+
+          <h3 className="text-2xl mb-2">Player Turn: {currentPlayer.name} {currentPlayer.token}</h3>
+          <h3 className="text-2xl mb-2">Dice Roll: {dice.die1} & {dice.die2}</h3>
+
+          <div className="mb-2 flex gap-4">
+            <button onClick={() => movePlayer()} className="px-2 py-0 bg-[#39ad39] disabled:opacity-50 disabled:cursor-not-allowed">
+              Roll Dice
+            </button>
+            <button className="px-2 py-0 bg-[#39ad39] disabled:opacity-50 disabled:cursor-not-allowed">
+              End Turn
+            </button>
+          </div>
+
+          <div>
+            {players.map((player, index) => {
+              return (
+                <div key={index} className="mb-4">
+                  <div>{player.name}{player.token}{player.money}</div>
+                  Position: {player.location}
+                </div>
+              )
+            })}
+          </div>
+
+        </div>
+      </Board> */}
+
       <Board board={BOARD_CLASSIC} players={players}>
         <div className="h-full w-full p-10 bg-[#130f1d] text-white">
 
@@ -250,5 +416,29 @@ function Monopoly() {
 }
 
 export default function Room() {
-  return <Monopoly />
+  return (
+    <div className="app">
+      <div className="v-room">
+
+        <div className="v-content">
+
+          <div className="v-content-left h-[1800px] ">
+            <div className="border border-red-500 h-full">
+              Content
+            </div>
+          </div>
+
+          <Monopoly className="v-content-center" />
+
+
+          <div className="v-content-right w-full h-[1800px]">
+            <div className="border border-violet-500 w-full">
+              Content
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  )
 }
