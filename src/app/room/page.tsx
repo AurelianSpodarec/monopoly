@@ -201,9 +201,9 @@ function Board({ board, players, children }: { board: any, players: Player, chil
   function renderPlayers() {
     return (
       <div className="absolute top-0 right-0 bottom-0 left-0 pointer-events-none">
-        {/* {players.map((player: Player, index: number) => {
+        {players.map((player: Player, index: number) => {
           return <PlayerToken key={index} player={player} />
-        })} */}
+        })}
       </div>
     )
   }
@@ -217,26 +217,7 @@ function Board({ board, players, children }: { board: any, players: Player, chil
           {children}
         </div>
       </div>
-
-
     </div>
-    // <div className="p4" style={{ minWidth: "fit-content" }}>
-
-    //   <div className="board-wrap" data-resized="true">
-    //     <div className="m-auto relative" style={{ width: "fit-content" }}>
-
-    //       <div className="board">
-    //         {renderBoard()}
-    //         {renderPlayers()}
-    //         <div className="board-center">
-    //           {children}
-    //         </div>
-    //       </div>
-
-    //     </div>
-    //   </div>
-
-    // </div>
   );
 };
 
@@ -270,25 +251,30 @@ function Monopoly({ className }: any) {
   const [windowDimensions, setWindowDimensions] = useState({ width: 0, height: 0 })
 
 
-  const updateBoardScale = () => {
-    const dimensions = boardRef?.current?.getBoundingClientRect();
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
+  // const updateBoardScale = () => {
+  //   const boardDimensionsRect = boardRef?.current?.getBoundingClientRect();
+  //   // console.log(boardRef.current)
+  //   console.log(boardDimensionsRect)
 
-    console.log(windowWidth, windowHeight)
+  //   if(!boardDimensionsRect) return
+  //   const windowWidth = window.innerWidth;
+  //   const windowHeight = window.innerHeight - 32; // -32, padding
 
-    // Get height of screen
+  //   const scaleX = windowWidth / boardDimensionsRect.width;
+  //   const scaleY = windowHeight / boardDimensionsRect.height;
 
-    setBoardDimensions({
-      width: windowHeight,
-      height: windowHeight,
-    })
+  //   const scale = Math.min(scaleX, scaleY);
+  //   console.log("scale", scale)
+  //   setBoardDimensions({
+  //     width: windowHeight,
+  //     height: windowHeight,
+  //   })
 
-    const scaleX = windowWidth / dimensions.width;
-    const scaleY = windowHeight / dimensions.height;
+  //   setBoardScale(scale)
 
-    const scale = Math.min(scaleX, scaleY);
-    setBoardScale(scale)
+
+
+
 
     // console.log(dimensions)
     // if (dimensions) {
@@ -315,12 +301,68 @@ function Monopoly({ className }: any) {
     //     setBoardScale((dimensions.width * scale) / 1000);
     //   }
     // }
-  };
+  // };
 
+
+  const updateBoardScale = () => {
+    // const boardDimensionsRect = boardRef?.current?.getBoundingClientRect();
+    // console.log("board dimension rect", boardDimensionsRect)
+    // if (!boardDimensionsRect) return;
+  
+    // const windowWidth = window.innerWidth;
+    // const windowHeight = window.innerHeight - 32; // -32, padding
+  
+    // const scaleX = windowWidth / boardDimensionsRect.width;
+    // const scaleY = windowHeight / boardDimensionsRect.height;
+  
+    // const scale = Math.min(scaleX, scaleY);
+  
+    // console.log("scale", scale);
+  
+    // setBoardDimensions({
+    //   width: boardDimensionsRect.width * scale,
+    //   height: boardDimensionsRect.height * scale,
+    // });
+  
+    // setBoardScale(scale);
+
+    const boardDimensionsRect = boardRef?.current?.getBoundingClientRect();
+    console.log("board dimension rect", boardDimensionsRect)
+    if (!boardDimensionsRect) return;
+  
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight; // -32, padding
+  
+    // const scaleX = windowWidth / boardDimensionsRect.width;
+    // const scaleY = windowHeight / boardDimensionsRect.height;
+  
+    // const scale = Math.min(scaleX, scaleY);
+  
+    // console.log("scale", scale);
+  
+    setBoardDimensions({
+      width: windowHeight,
+      height: windowHeight,
+    });
+  
+    setBoardScale((windowHeight + 64) / 1000);
+  };
 
   useEffect(() => {
     updateBoardScale()
   }, [])
+  
+  useEffect(() => {
+    const handlerResize = () => {
+      updateBoardScale()
+    };
+    window.addEventListener('resize', handlerResize);
+    return () => {
+      window.removeEventListener('resize', handlerResize);
+    };
+  }, []);
+
+
 
   function updatePlayer() {
 
@@ -339,10 +381,6 @@ function Monopoly({ className }: any) {
       die2,
     })
     const spaces = die1 + die2
-
-    // setPlayers(playerTurn, (player) => {
-    //   player.location = 5
-    // });
   }
 
   return (
@@ -354,34 +392,6 @@ function Monopoly({ className }: any) {
         height: boardDimensions?.height,
         transform: `scale(${boardScale})`
       }}>
-      {/* <Board board={BOARD_CLASSIC} players={players}>
-        <div className="h-full w-full p-10 bg-[#130f1d] text-white">
-
-          <h3 className="text-2xl mb-2">Player Turn: {currentPlayer.name} {currentPlayer.token}</h3>
-          <h3 className="text-2xl mb-2">Dice Roll: {dice.die1} & {dice.die2}</h3>
-
-          <div className="mb-2 flex gap-4">
-            <button onClick={() => movePlayer()} className="px-2 py-0 bg-[#39ad39] disabled:opacity-50 disabled:cursor-not-allowed">
-              Roll Dice
-            </button>
-            <button className="px-2 py-0 bg-[#39ad39] disabled:opacity-50 disabled:cursor-not-allowed">
-              End Turn
-            </button>
-          </div>
-
-          <div>
-            {players.map((player, index) => {
-              return (
-                <div key={index} className="mb-4">
-                  <div>{player.name}{player.token}{player.money}</div>
-                  Position: {player.location}
-                </div>
-              )
-            })}
-          </div>
-
-        </div>
-      </Board> */}
 
       <Board board={BOARD_CLASSIC} players={players}>
         <div className="h-full w-full p-10 bg-[#130f1d] text-white">
@@ -423,7 +433,7 @@ export default function Room() {
         <div className="v-content">
 
           <div className="v-content-left h-[1800px] ">
-            <div className="border border-red-500 h-full">
+            <div className="border-4 border-red-400 bg-yellow-900 h-full">
               Content
             </div>
           </div>
@@ -432,7 +442,7 @@ export default function Room() {
 
 
           <div className="v-content-right w-full h-[1800px]">
-            <div className="border border-violet-500 w-full">
+            <div className="border-4 bg-violet-900 border-violet-400 w-full">
               Content
             </div>
           </div>
