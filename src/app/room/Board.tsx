@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
-import { IPlayer } from "../interfaces/IPlayer";
-import Tile from "../components/Tiles/Tile";
-import { IBoard } from "../interfaces/IBoard";
+import { IPlayer } from "../../interfaces/IPlayer";
+import Tile from "../../components/Tiles/Tile";
+import { IBoard } from "../../interfaces/IBoard";
 
 interface BoardProps {
   board: IBoard;

@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+
 import Board from "./Board";
 import BOARD_CLASSIC from "../../boards/board-classic";
-import { IPlayer } from "../interfaces/IPlayer";
+import { IPlayer } from "../../interfaces/IPlayer";
+
 
 const DATA_PLAYERS = [
   {
@@ -49,7 +51,26 @@ function Monopoly({ className }: any) {
   // Die
   // ===========================================================
   function rollDie() {
-    return 1 + Math.floor(Math.random() * 6);
+    // Probability to roll any number is: 1/6(16.667%)
+    const randomNumber = Math.random();
+    if (randomNumber < 1 / 6) {
+      return 1;
+    }
+    else if (randomNumber < 2 / 6) {
+      return 2;
+    }
+    else if (randomNumber < 3 / 6) {
+      return 3;
+    }
+    else if (randomNumber < 4 / 6) {
+      return 4;
+    }
+    else if (randomNumber < 5 / 6) {
+      return 5;
+    }
+    else {
+      return 6;
+    }
   }
 
   // Board Resizing
@@ -117,11 +138,15 @@ function Monopoly({ className }: any) {
   // Player
   // ===========================================================
 
-  function updatePlayer() {
+  function updatePlayer(playedIndex, position) {
 
   }
 
-  function setPlayerTransformPosition(playerIndex) {
+  function addPlayerToLobby(player:any) {
+
+  }
+
+  function updatePlayerPosition(playerIndex:number) {
     const boardDimensionsRect = boardRef?.current?.getBoundingClientRect();
 
     console.log("wwwwwwwwwwwwwwwwwwww", boardDimensionsRect.height)
@@ -129,21 +154,22 @@ function Monopoly({ className }: any) {
     const windowHeight = window.innerHeight; // -32, padding
 
     console.log(boardRef.current.getBoundingClientRect())
+  
     // console.log(scaleX)
-    setPlayers(oldPlayers => {
-      const updatedPlayers = [...oldPlayers];
-      updatedPlayers[playerIndex] = {
-        ...oldPlayers[playerIndex],
-        position: {
-          x: 510 / 10,
-          y: 510 / 10 // Corrected the variable name here
-        }
-      };
-      return updatedPlayers;
-    });
+    // setPlayers(oldPlayers => {
+    //   const updatedPlayers = [...oldPlayers];
+    //   updatedPlayers[playerIndex] = {
+    //     ...oldPlayers[playerIndex],
+    //     position: {
+    //       x: 510 / 10,
+    //       y: 510 / 10 // Corrected the variable name here
+    //     }
+    //   };
+    //   return updatedPlayers;
+    // });
   }
 
-  function movePlayer() {
+  function movePlayer(playedIndex) {
     const die1 = rollDie()
     const die2 = rollDie()
     setDice({
@@ -151,6 +177,7 @@ function Monopoly({ className }: any) {
       die2,
     })
     const spaces = die1 + die2
+    updatePlayerPosition(playerIndex)
   }
 
   // Other
@@ -158,7 +185,7 @@ function Monopoly({ className }: any) {
 
   useEffect(() => {
     updateBoardScale()
-    setPlayerTransformPosition(1)
+    // setPlayerTransformPosition(1)
   }, [])
 
   useEffect(() => {
