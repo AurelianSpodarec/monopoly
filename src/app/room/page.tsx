@@ -2,29 +2,8 @@
 
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import BOARD_CLASSIC from './board-classic';
+import { IPlayer } from '../interfaces/IPlayer';
 
-
-interface Player {
-  name: string;
-  token: string;
-  location: number;
-  money: number;
-  properties: OwnedProperty[];
-}
-
-interface OwnedProperty {
-  property: Property;
-  houses: number;
-}
-
-interface Property {
-  name: string;
-  group: string;
-  cost: number;
-  houseCost: number;
-  maxHouses: number;
-  rent: [number, number, number, number, number, number];
-}
 
 function compileBoard(data: any) {
   const tiles = [...data.properties];
@@ -69,7 +48,7 @@ function TileCorner({ data, className }: any) {
 }
 
 
-function Board({ board, players, children }: { board: any, players: Player, children: React.ReactElement }) {
+function Board({ board, players, children }: { board: any, players: IPlayer, children: React.ReactElement }) {
   const tiles = compileBoard(board);
   const numCorners = 4;
   const boardRef = useRef(null)
@@ -80,79 +59,6 @@ function Board({ board, players, children }: { board: any, players: Player, chil
 
   // const rectWidth = document.browser.width
   // const rectHeight = rectWidth / aspectRatio;
-
-
-  useEffect(() => {
-    // const dimensions = boardRef?.current?.getBoundingClientRect()
-    // setBoardDimensions(dimensions)
-
-
-
-
-    // const ratioX = window.innerWidth / dimensions.width
-    // const ratioY = window.innerHeight / dimensions.height
-    // const scale = Math.min(ratioX, ratioY)
-
-    // // const scale = Math.min(window.innerWidth / img.width, window.innerHeight / img.height);
-
-    // setBoardScale((scale))
-
-    // Board needs to be always square, can't be bigger than screen height or width
-    // if(dimensions) {
-    //   calculateScale()
-    // }
-
-    // const ratioX = window.innerWidth / dimensions.width
-    // const ratioY = window.innerHeight / dimensions.height
-    // const scale = Math.min(ratioX, ratioY)
-
-    // setBoardScale((dimensions.width * scale) / 1000)
-
-
-
-
-
-
-
-
-
-
-    // console.log(dimensions)
-    // const windowWidth = window.innerWidth;
-    // const windowHeight = window.innerHeight;
-
-    // const scaleX = windowWidth / dimensions.width;
-    // const scaleY = windowHeight / dimensions.height;
-
-    // const scale = Math.min(scaleX, scaleY);
-
-    // if (windowWidth <= windowHeight) {
-    //   setBoardScale(scale) // some error
-    //   console.log(111)
-    // } else {
-    //   setBoardScale((dimensions.height * scale) / 1000) // good and works fine
-    //   console.log(222)
-    // }
-    // updateBoardScale()
-  }, [])
-
-  function calculateScale() {
-    // if(!boardDimensions) return
-  }
-
-
-  // useLayoutEffect(() => {
-  //   const handleResize = () => {
-  //     updateBoardScale();
-  //   };
-
-  //   window.addEventListener('resize', handleResize);
-  //   updateBoardScale();
-  //   return () => {
-  //     window.removeEventListener('resize', handleResize);
-  //   };
-  // }, []);
-
 
   const classNamesCorners = ['go', 'jail', 'sleep', 'gotojail'];
   const classnamesRows = ['top', 'right', 'bottom', 'left'];
@@ -188,7 +94,7 @@ function Board({ board, players, children }: { board: any, players: Player, chil
         className="absolute top-0 h-8 w-8 leading-8 table "
         style={{
           "fontSize": "2rem",
-          "transform": "translate(0px, 0px) translate(-50%, -50%)",
+          "transform": `translate(${player.position.x}px, ${player.position.y}px) translate(-50%, -50%)`,
           "transitionDuration": ".3s",
           "transitionTimingFunction": "cubic-bezier(.1,0,0,1)"
         }}
@@ -201,7 +107,7 @@ function Board({ board, players, children }: { board: any, players: Player, chil
   function renderPlayers() {
     return (
       <div className="absolute top-0 right-0 bottom-0 left-0 pointer-events-none">
-        {players.map((player: Player, index: number) => {
+        {players.map((player: IPlayer, index: number) => {
           return <PlayerToken key={index} player={player} />
         })}
       </div>
@@ -226,18 +132,14 @@ function rollDie() {
 }
 
 
-
-
-
-
 function Monopoly({ className }: any) {
   const [dice, setDice] = useState({
     die1: 1,
     die2: 1
   })
-  const [players, setPlayers] = useState<Player[]>([
-    { name: "Mario", token: "🥶", location: 0, money: 1500, properties: [] },
-    { name: "Luigi", token: "😎", location: 0, money: 1500, properties: [] }
+  const [players, setPlayers] = useState<IPlayer[]>([
+    { name: "Mario", token: "🥶", location: 0, position: { x: 0, y: 0}, money: 1500, properties: [] },
+    { name: "Luigi", token: "😎", location: 0, position: { x: 0, y: 0 }, money: 1500, properties: [] }
   ]);
   const boardRef = useRef(null)
   const [playerTurn, setPlayerTurn] = useState(0);
@@ -250,108 +152,68 @@ function Monopoly({ className }: any) {
   const dimensions = { width: 0, height: 0 };
   const [windowDimensions, setWindowDimensions] = useState({ width: 0, height: 0 })
 
-
-  // const updateBoardScale = () => {
-  //   const boardDimensionsRect = boardRef?.current?.getBoundingClientRect();
-  //   // console.log(boardRef.current)
-  //   console.log(boardDimensionsRect)
-
-  //   if(!boardDimensionsRect) return
-  //   const windowWidth = window.innerWidth;
-  //   const windowHeight = window.innerHeight - 32; // -32, padding
-
-  //   const scaleX = windowWidth / boardDimensionsRect.width;
-  //   const scaleY = windowHeight / boardDimensionsRect.height;
-
-  //   const scale = Math.min(scaleX, scaleY);
-  //   console.log("scale", scale)
-  //   setBoardDimensions({
-  //     width: windowHeight,
-  //     height: windowHeight,
-  //   })
-
-  //   setBoardScale(scale)
-
-
-
-
-
-    // console.log(dimensions)
-    // if (dimensions) {
-    //   setBoardDimensions(dimensions);
-
-    //   setWindowDimensions({
-    //     width: windowWidth,
-    //     height: windowHeight
-    //   })
-
-    //   const scaleX = windowWidth / dimensions.width;
-    //   const scaleY = windowHeight / dimensions.height;
-
-    //   const scale = Math.min(scaleX, scaleY);
-
-    //   console.log(scale)
-
-    //   if (windowWidth <= windowHeight) {
-    //     setBoardScale(scale);
-    //     console.log("111")
-    //   } else {
-    //     // setBoardScale((dimensions.height * scale) / 1000);
-    //     const newWidth = dimensions.height;
-    //     setBoardScale((dimensions.width * scale) / 1000);
-    //   }
-    // }
-  // };
-
-
+ 
   const updateBoardScale = () => {
-    // const boardDimensionsRect = boardRef?.current?.getBoundingClientRect();
-    // console.log("board dimension rect", boardDimensionsRect)
-    // if (!boardDimensionsRect) return;
-  
-    // const windowWidth = window.innerWidth;
-    // const windowHeight = window.innerHeight - 32; // -32, padding
-  
-    // const scaleX = windowWidth / boardDimensionsRect.width;
-    // const scaleY = windowHeight / boardDimensionsRect.height;
-  
-    // const scale = Math.min(scaleX, scaleY);
-  
-    // console.log("scale", scale);
-  
-    // setBoardDimensions({
-    //   width: boardDimensionsRect.width * scale,
-    //   height: boardDimensionsRect.height * scale,
-    // });
-  
-    // setBoardScale(scale);
 
     const boardDimensionsRect = boardRef?.current?.getBoundingClientRect();
     console.log("board dimension rect", boardDimensionsRect)
     if (!boardDimensionsRect) return;
-  
+
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight; // -32, padding
-  
-    // const scaleX = windowWidth / boardDimensionsRect.width;
-    // const scaleY = windowHeight / boardDimensionsRect.height;
-  
-    // const scale = Math.min(scaleX, scaleY);
-  
-    // console.log("scale", scale);
-  
-    setBoardDimensions({
-      width: windowHeight,
-      height: windowHeight,
-    });
-  
-    setBoardScale((windowHeight + 64) / 1000);
+
+    const scaleX = windowWidth / boardDimensionsRect.width;
+    const scaleY = windowHeight / boardDimensionsRect.height;
+
+    const scale = Math.min(scaleX, scaleY);
+
+    if (windowWidth <= windowHeight) {
+      // setBoardScale((dimensions.height * scale) / 1000);
+      const newWidth = dimensions.height;
+      // setBoardScale((dimensions.width * scale) / 1000);
+      setWindowDimensions({
+        width: windowHeight,
+        height: windowHeight
+      })
+      setBoardScale(scale);
+    } else {
+      setBoardScale((windowHeight + 64) / 1000);
+      setBoardDimensions({
+        width: windowHeight,
+        height: windowHeight,
+      });
+    }
+
+      // const dimensions = boardRef?.current?.getBoundingClientRect()
+    // setBoardDimensions(dimensions)
+
+
+
+
+    // const ratioX = window.innerWidth / dimensions.width
+    // const ratioY = window.innerHeight / dimensions.height
+    // const scale = Math.min(ratioX, ratioY)
+
+    // // const scale = Math.min(window.innerWidth / img.width, window.innerHeight / img.height);
+
+    // setBoardScale((scale))
+
+    // Board needs to be always square, can't be bigger than screen height or width
+    // if(dimensions) {
+    //   calculateScale()
+    // }
+
+    // const ratioX = window.innerWidth / dimensions.width
+    // const ratioY = window.innerHeight / dimensions.height
+    // const scale = Math.min(ratioX, ratioY)
+
+    // setBoardScale((dimensions.width * scale) / 1000)
   };
 
   useEffect(() => {
     updateBoardScale()
   }, [])
-  
+
   useEffect(() => {
     const handlerResize = () => {
       updateBoardScale()
@@ -362,16 +224,39 @@ function Monopoly({ className }: any) {
     };
   }, []);
 
-
-
   function updatePlayer() {
 
   }
 
+  function setPlayerTransformPosition(playerIndex) {
+    const boardDimensionsRect = boardRef?.current?.getBoundingClientRect(); 
+
+    console.log("wwwwwwwwwwwwwwwwwwww", boardDimensionsRect.height)
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight; // -32, padding
+
+    console.log(boardRef.current.getBoundingClientRect())
+    // console.log(scaleX)
+    setPlayers(oldPlayers => {
+      const updatedPlayers = [...oldPlayers];
+      updatedPlayers[playerIndex] = {
+        ...oldPlayers[playerIndex],
+        position: {
+          x: 510 / 10,
+          y: 510 / 10 // Corrected the variable name here
+        }
+      };
+      return updatedPlayers;
+    });
+  }
 
   function getBoardDimensions() {
 
   }
+
+  useEffect(() => {
+    setPlayerTransformPosition(1)
+  }, [])
 
   function movePlayer() {
     const die1 = rollDie()
