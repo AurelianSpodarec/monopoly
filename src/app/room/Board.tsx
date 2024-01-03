@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { IPlayer } from "../interfaces/IPlayer";
-import Tile from "../Tiles/Tile";
+import Tile from "../components/Tiles/Tile";
 import { IBoard } from "../interfaces/IBoard";
 
 interface BoardProps {
@@ -63,7 +63,7 @@ function Board({ board, players, children }: BoardProps) {
 
   // Board: Player
   // ===============================s===================
-  function PlayerToken({ player, position }: any) {
+  function PlayerToken({ player }: { player: IPlayer }) {
     return (
       <div
         className="absolute top-0 h-8 w-8 leading-8 table "

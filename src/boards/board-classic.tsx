@@ -1,4 +1,4 @@
-import { IBoard } from "../interfaces/IBoard";
+import { IBoard } from "../app/interfaces/IBoard";
 
 const BOARD_CLASSIC:IBoard = {
   corners: [

@@ -1,20 +1,43 @@
 import { useEffect, useRef, useState } from "react";
 import Board from "./Board";
-import BOARD_CLASSIC from "./board-classic";
+import BOARD_CLASSIC from "../../boards/board-classic";
+import { IPlayer } from "../interfaces/IPlayer";
 
 function rollDie() {
   return 1 + Math.floor(Math.random() * 6);
 }
+
+const DATA_PLAYERS = [
+  {
+    name: "Mario",
+    token: "🥶",
+    location: 0,
+    position: {
+      x: 0,
+      y: 0
+    },
+    money: 1500,
+    properties: []
+  },
+  {
+    name: "Luigi",
+    token: "😎",
+    location: 0,
+    position: {
+      x: 0,
+      y: 0
+    },
+    money: 1500,
+    properties: []
+  }
+]
 
 function Monopoly({ className }: any) {
   const [dice, setDice] = useState({
     die1: 1,
     die2: 1
   })
-  const [players, setPlayers] = useState<IPlayer[]>([
-    { name: "Mario", token: "🥶", location: 0, position: { x: 0, y: 0}, money: 1500, properties: [] },
-    { name: "Luigi", token: "😎", location: 0, position: { x: 0, y: 0 }, money: 1500, properties: [] }
-  ]);
+  const [players, setPlayers] = useState<IPlayer[]>([...DATA_PLAYERS]);
   const boardRef = useRef(null)
   const [playerTurn, setPlayerTurn] = useState(0);
   const currentPlayer = players[playerTurn];
@@ -26,7 +49,7 @@ function Monopoly({ className }: any) {
   const dimensions = { width: 0, height: 0 };
   const [windowDimensions, setWindowDimensions] = useState({ width: 0, height: 0 })
 
- 
+
   const updateBoardScale = () => {
 
     const boardDimensionsRect = boardRef?.current?.getBoundingClientRect();
@@ -57,14 +80,11 @@ function Monopoly({ className }: any) {
         height: windowHeight,
       });
     }
-// const rectWidth = document.browser.width
-// const rectHeight = rectWidth / aspectRatio;
+    // const rectWidth = document.browser.width
+    // const rectHeight = rectWidth / aspectRatio;
 
-      // const dimensions = boardRef?.current?.getBoundingClientRect()
+    // const dimensions = boardRef?.current?.getBoundingClientRect()
     // setBoardDimensions(dimensions)
-
-
-
 
     // const ratioX = window.innerWidth / dimensions.width
     // const ratioY = window.innerHeight / dimensions.height
@@ -105,7 +125,7 @@ function Monopoly({ className }: any) {
   }
 
   function setPlayerTransformPosition(playerIndex) {
-    const boardDimensionsRect = boardRef?.current?.getBoundingClientRect(); 
+    const boardDimensionsRect = boardRef?.current?.getBoundingClientRect();
 
     console.log("wwwwwwwwwwwwwwwwwwww", boardDimensionsRect.height)
     const windowWidth = window.innerWidth;
@@ -149,10 +169,11 @@ function Monopoly({ className }: any) {
       className={`bg-[#130f1d] text-white ${className} `}
       ref={boardRef}
       style={{
+        transform: `scale(${boardScale})`,
         width: boardDimensions?.width,
         height: boardDimensions?.height,
-        transform: `scale(${boardScale})`
-      }}>
+      }}
+    >
 
       <Board board={BOARD_CLASSIC} players={players}>
         <div className="h-full w-full p-10 bg-[#130f1d] text-white">
